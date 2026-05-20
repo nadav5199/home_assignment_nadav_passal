@@ -2,7 +2,9 @@ USE master;
 GO
 
 IF NOT EXISTS (SELECT name FROM sys.databases WHERE name = 'TaskManagerDB')
-BEGIN
-    CREATE DATABASE TaskManagerDB;
-END
+    EXEC('CREATE DATABASE TaskManagerDB');
+GO
+
+-- Ensure compatibility level supports THROW and other modern T-SQL features
+ALTER DATABASE TaskManagerDB SET COMPATIBILITY_LEVEL = 130;
 GO
