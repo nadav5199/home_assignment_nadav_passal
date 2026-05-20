@@ -1,4 +1,5 @@
-const sql = require('mssql');
+const sql     = require('mssql');
+const STRINGS = require('./strings');
 
 const config = {
   server:   process.env.DB_SERVER,
@@ -16,7 +17,7 @@ let pool;
 async function connect() {
   if (pool) return;
   pool = await sql.connect(config);
-  console.log('Connected to SQL Server');
+  console.log(STRINGS.LOG_DB_CONNECTED);
 }
 
 function getPool() {

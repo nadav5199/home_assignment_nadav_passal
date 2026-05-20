@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getEmployees } from './services/employeeService';
+import { STRINGS } from './strings';
 import './App.css';
 
 export default function App() {
@@ -15,25 +16,25 @@ export default function App() {
   }, []);
 
   if (loading) {
-    return <div className="status">Loading...</div>;
+    return <div className="status">{STRINGS.LOADING}</div>;
   }
 
   if (error) {
-    return <div className="error">Failed to load employees: {error}</div>;
+    return <div className="error">{STRINGS.ERROR_LOAD_EMPLOYEES}{error}</div>;
   }
 
   return (
     <div className="container">
-      <h1>Employee Task Summary</h1>
+      <h1>{STRINGS.PAGE_TITLE}</h1>
       <table>
         <thead>
           <tr>
-            <th>Employee</th>
-            <th>Department</th>
-            <th>Total Tasks</th>
-            <th>Pending</th>
-            <th>In Progress</th>
-            <th>Done</th>
+            <th>{STRINGS.TABLE_HEADER_EMPLOYEE}</th>
+            <th>{STRINGS.TABLE_HEADER_DEPARTMENT}</th>
+            <th>{STRINGS.TABLE_HEADER_TOTAL_TASKS}</th>
+            <th>{STRINGS.TABLE_HEADER_PENDING}</th>
+            <th>{STRINGS.TABLE_HEADER_IN_PROGRESS}</th>
+            <th>{STRINGS.TABLE_HEADER_DONE}</th>
           </tr>
         </thead>
         <tbody>
