@@ -41,18 +41,10 @@ async function setupDb() {
   pool = await new sql.ConnectionPool({ ...baseConfig, database: 'TaskManagerDB' }).connect();
 
   // Create tables
-  const schemaDir = path.resolve(__dirname, '../../../db/schema');
-  for (const file of ['02_departments.sql', '03_employees.sql', '04_tasks.sql']) {
-    const content = fs.readFileSync(path.join(schemaDir, file), 'utf8');
-    await runBatches(pool, content);
-  }
+  await runBatches(pool, fs.readFileSync(path.resolve(__dirname, '../../../db/schema.sql'), 'utf8'));
 
   // Create / replace stored procedures
-  const spDir = path.resolve(__dirname, '../../../db/stored_procedures');
-  for (const file of fs.readdirSync(spDir).filter(f => f.endsWith('.sql')).sort()) {
-    const content = fs.readFileSync(path.join(spDir, file), 'utf8');
-    await runBatches(pool, content);
-  }
+  await runBatches(pool, fs.readFileSync(path.resolve(__dirname, '../../../db/stored_procedures.sql'), 'utf8'));
 }
 
 async function seedDb() {
